@@ -67,12 +67,12 @@ InputField.displayName = "InputField";
 
 const AuthButton = ({ 
   children, loading, ...props 
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & { loading?: boolean }) => {
+}: Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onDrag" | "onDragStart" | "onDragEnd" | "onAnimationStart"> & { loading?: boolean }) => {
   return (
     <motion.button
       whileHover={{ scale: 1.01 }}
       whileTap={{ scale: 0.98 }}
-      {...props}
+      {...(props as any)}
       className={cn(
         "relative w-full group overflow-hidden rounded-xl font-semibold text-white shadow-[0_0_40px_-10px_rgba(6,182,212,0.3)] transition-all duration-300",
         props.disabled ? "opacity-70 cursor-not-allowed" : "hover:shadow-[0_0_60px_-15px_rgba(6,182,212,0.5)]"
