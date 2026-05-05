@@ -8,7 +8,7 @@ import MovieCard from "./MovieCard";
 
 interface Movie {
   title: string;
-  similarity_score?: string;
+  similarity_score?: number | string;
   explanation?: string;
   poster_path?: string;
   rating?: number;
@@ -151,7 +151,7 @@ export default function RecommendationPanel() {
           ) : recommendations.length > 0 ? (
             <div className="flex flex-col gap-10">
               <div className="text-center">
-                <h3 className="text-2xl font-bold text-white mb-2">Recommended For You</h3>
+                <h3 className="text-2xl font-bold text-white mb-2">Recommended For You 🎯</h3>
                 <p className="text-slate-400">Because you like <span className="text-cyan-400 font-semibold">{inputMovie}</span></p>
               </div>
               

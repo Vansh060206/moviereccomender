@@ -11,7 +11,7 @@ import { cleanMovieTitle } from "@/lib/utils";
 
 interface Movie {
   title: string;
-  similarity_score?: string;
+  similarity_score?: number | string;
   explanation?: string;
   poster_path?: string;
   rating?: number;
@@ -195,9 +195,9 @@ export default function MovieCard({ movie, index = 0 }: { movie: Movie; index?: 
           <h3 className="text-white font-bold text-lg truncate drop-shadow-md">{movie.title}</h3>
           
           <div className="flex items-center gap-2 mt-1">
-            {movie.similarity_score && (
+            {movie.similarity_score !== undefined && (
               <span className="flex items-center gap-1 text-cyan-400 text-xs font-semibold bg-cyan-900/40 px-2 py-1 rounded-md backdrop-blur-md">
-                Match: {(parseFloat(movie.similarity_score) * 100).toFixed(0)}%
+                Match: {(typeof movie.similarity_score === 'number' ? movie.similarity_score * 100 : parseFloat(movie.similarity_score) * 100).toFixed(0)}%
               </span>
             )}
             {movie.rating && (

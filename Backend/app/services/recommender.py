@@ -1,6 +1,7 @@
 import pandas as pd
 import pickle
 from pathlib import Path
+from utils.explain import generate_explanation
 
 # Get project base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,7 +39,12 @@ except FileNotFoundError:
 
 def get_content_recommendations(movie_name: str, top_n: int = 5):
     """
-    Recommends movies using the pre-computed cosine similarity matrix (Instantaneous).
+    Core recommendation logic using pre-computed cosine similarity matrix.
+    Logic:
+    1. Finds the closest matching movie title in the dataset.
+    2. Retrieves precomputed similarity distances in O(1) time.
+    3. Sorts distances to find the top_n most similar movies.
+    4. Constructs response with movie details and AI explanations.
     """
     if similarity is None or model_movies_df.empty:
         print("Model files not found. Run train_model.py first.")
@@ -75,9 +81,9 @@ def get_content_recommendations(movie_name: str, top_n: int = 5):
         
         recommendations.append({
             "title": rec_title,
-            "similarity_score": str(round(score, 2)),
+            "similarity_score": round(float(score), 2),
             "poster_path": str(poster_path),
-            "explanation": f"Because you liked {source_title}, you may enjoy {rec_title} based on our AI similarity matching."
+            "explanation": generate_explanation(source_title, rec_title)
         })
         
     return {
