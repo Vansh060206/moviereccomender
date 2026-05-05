@@ -33,7 +33,8 @@ export default function RecommendationPanel() {
     setRecommendations([]);
     
     try {
-      const response = await axios.post(`http://127.0.0.1:8000/recommend`, {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+      const response = await axios.post(`${apiUrl}/recommend`, {
         movie_name: movieName
       });
       
