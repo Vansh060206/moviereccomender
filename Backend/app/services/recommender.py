@@ -29,11 +29,20 @@ movies_df['genres'] = movies_df['genres'].apply(lambda x: str(x).replace(", ", "
 # Load Pre-trained AI Models for INSTANT /recommend Endpoint
 # ---------------------------------------------------------
 models_dir = BASE_DIR / "models"
+import zipfile
+
 try:
+    if not (models_dir / 'similarity.pkl').exists():
+        if (models_dir / 'models.zip').exists():
+            print("Extracting models from zip...")
+            with zipfile.ZipFile(models_dir / 'models.zip', 'r') as zip_ref:
+                zip_ref.extractall(models_dir)
+                
     movies_dict = pickle.load(open(models_dir / 'movies_dict.pkl', 'rb'))
     model_movies_df = pd.DataFrame(movies_dict)
     similarity = pickle.load(open(models_dir / 'similarity.pkl', 'rb'))
-except FileNotFoundError:
+except Exception as e:
+    print(f"Error loading models: {e}")
     model_movies_df = pd.DataFrame()
     similarity = None
 
