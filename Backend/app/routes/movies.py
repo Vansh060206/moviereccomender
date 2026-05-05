@@ -1,16 +1,15 @@
 from fastapi import APIRouter
-import pandas as pd
-from pathlib import Path
+from services.recommender import movies_df
 
 router = APIRouter()
 
-# Get base directory
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Load movies dataset
-movies = pd.read_csv(BASE_DIR / "data" / "movies.csv")
-
-
 @router.get("/movies")
 def get_movies():
-    return movies.head(50).to_dict(orient="records")
+    """
+    Returns a random selection of movies for the trending carousel.
+    """
+    sample = movies_df.sample(10)
+    
+    # Rename movieId to id and url to poster_path for the frontend
+    result = sample.rename(columns={"movieId": "id", "url": "poster_path"}).to_dict(orient="records")
+    return {"movies": result}

@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 from routes.recommend import router as recommend_router
+from routes.health import router as health_router
 from routes.movies import router as movies_router
 from routes.search import router as search_router
 
 app = FastAPI(
     title="Movie Recommendation API",
-    description="API for recommending movies",
+    description="API for recommending movies based on content",
     version="1.0"
 )
 
@@ -20,6 +21,7 @@ app.add_middleware(
 )
 
 app.include_router(recommend_router)
+app.include_router(health_router)
 app.include_router(movies_router)
 app.include_router(search_router)
 

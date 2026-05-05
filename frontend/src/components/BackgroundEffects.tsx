@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
+interface Star {
+  id: number;
+  size: number;
+  top: number;
+  left: number;
+  duration: number;
+  delay: number;
+}
+
 export default function BackgroundEffects() {
   const [mounted, setMounted] = useState(false);
-
-  // Particle stars
-  const stars = React.useMemo(() => {
-    return Array.from({ length: 50 }).map((_, i) => ({
+  const [stars] = useState<Star[]>(() => 
+    Array.from({ length: 50 }).map((_, i) => ({
       id: i,
       size: Math.random() * 2 + 1,
       top: Math.random() * 100,
       left: Math.random() * 100,
       duration: Math.random() * 20 + 10,
       delay: Math.random() * 5,
-    }));
-  }, []);
+    }))
+  );
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 

@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Loader2 } from "lucide-react";
 import axios from "axios";
-import { cn } from "@/lib/utils";
+import { cn, cleanMovieTitle } from "@/lib/utils";
 
 interface Movie {
   id: number | string;
@@ -44,11 +44,34 @@ export default function SearchBar() {
       
       try {
         const response = await axios.get(`http://127.0.0.1:8000/search?title=${query}`);
+        let rawMovies = [];
         if (response.data && Array.isArray(response.data)) {
-          setResults(response.data.slice(0, 5));
+          rawMovies = response.data.slice(0, 5);
         } else if (response.data && response.data.results) {
-          setResults(response.data.results.slice(0, 5));
+          rawMovies = response.data.results.slice(0, 5);
         }
+        
+        // Enrich with OMDb posters
+        const apiKey = process.env.NEXT_PUBLIC_OMDB_API_KEY || "baeeb89";
+        const enrichedMovies = await Promise.all(rawMovies.map(async (m: Movie) => {
+          try {
+            const { cleanTitle, year } = cleanMovieTitle(m.title);
+            
+            let url = `https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(cleanTitle)}`;
+            if (year) url += `&y=${year}`;
+            
+            const res = await fetch(url);
+            const data = await res.json();
+            if (data.Poster && data.Poster !== "N/A") {
+              return { ...m, poster_path: data.Poster };
+            }
+          } catch (e) {
+            console.error(e);
+          }
+          return m;
+        }));
+        
+        setResults(enrichedMovies);
       } catch (error) {
         console.error("Search failed:", error);
         // Fallback for visual demo when backend is down

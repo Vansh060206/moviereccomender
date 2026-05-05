@@ -10,7 +10,7 @@
 
 # It will allow your frontend website to request movie recommendations
 
-fastapi==0.110.0
+fastapi
 
 # Uvicorn
 
@@ -18,7 +18,7 @@ fastapi==0.110.0
 
 # It handles incoming HTTP requests efficiently
 
-uvicorn==0.29.0
+uvicorn
 
 # Pandas
 
@@ -26,7 +26,7 @@ uvicorn==0.29.0
 
 # You are using it to load and manipulate movies.csv and ratings.csv
 
-pandas==2.2.2
+pandas
 
 # NumPy
 
@@ -34,7 +34,7 @@ pandas==2.2.2
 
 # Required by pandas and scikit-learn for matrix operations
 
-numpy==1.26.4
+numpy
 
 # Scikit-learn
 
@@ -42,7 +42,7 @@ numpy==1.26.4
 
 # You are using cosine_similarity from this library
 
-scikit-learn==1.4.2
+scikit-learn
 
 # SciPy
 
@@ -50,7 +50,7 @@ scikit-learn==1.4.2
 
 # Used internally by scikit-learn for mathematical operations
 
-scipy==1.13.0
+scipy
 
 # Python-dotenv
 
@@ -58,4 +58,4 @@ scipy==1.13.0
 
 # Useful when you add API keys or database credentials later
 
-python-dotenv==1.0.1
+python-dotenv

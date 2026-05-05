@@ -9,3 +9,6 @@ ENV/
 env.bak/
 venv.bak/
 .DS_Store
+*.pkl
+Backend/app/data/tmdb_5000_credits.csv
+Backend/app/data/tmdb_5000_movies.csv
