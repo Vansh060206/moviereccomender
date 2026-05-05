@@ -1,5 +1,20 @@
-
 # AI-Powered Movie Recommendation System
+
+## 🌐 Live Demo
+- **Frontend:** https://moviereccomender.vercel.app/
+- **Backend:** https://moviereccomender-backend.onrender.com/
+
+## ⚡ Highlights
+- Fully deployed full-stack application (Vercel + Render)
+- Real-time API integration with FastAPI backend
+- Firebase authentication with secure login/signup
+- AI-powered recommendation explanations
+
+## 🧠 Architecture Overview
+- Frontend communicates with FastAPI backend via REST APIs
+- Backend processes recommendations using ML model
+- Firebase handles authentication
+- Deployed on scalable cloud platforms
 
 ## Project Overview
 This project is an advanced, production-ready Movie Recommendation System built to help users discover new cinematic experiences. By analyzing thousands of movies using a content-based filtering approach (via the TMDB 5000 dataset), the platform generates hyper-personalized AI recommendations based on genres, themes, cast, and crew. It pairs a robust FastAPI backend for high-performance machine learning inferences with a visually stunning, responsive, and highly interactive frontend built with Next.js and TailwindCSS.
@@ -17,6 +32,24 @@ This project is an advanced, production-ready Movie Recommendation System built 
 - **Backend:** FastAPI, Python, Pandas, Scikit-learn, Uvicorn
 - **Machine Learning:** Natural Language Processing (NLP), CountVectorizer, Cosine Similarity
 - **Database & Auth:** Firebase (Realtime Database & Authentication)
+
+## 🔗 API Example
+
+**POST** `/recommend`
+
+**Response:**
+```json
+{
+  "input_movie": "Inception",
+  "recommendations": [
+    {
+      "title": "Interstellar",
+      "similarity_score": 0.89,
+      "explanation": "Because both involve space and complex storytelling"
+    }
+  ]
+}
+```
 
 ## Screenshots
 

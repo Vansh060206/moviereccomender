@@ -22,6 +22,7 @@ export default function RecommendationPanel() {
   const [hasSearched, setHasSearched] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [inputMovie, setInputMovie] = useState("");
+  const [isColdStart, setIsColdStart] = useState(false);
 
   const handleGetRecommendations = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,6 +32,12 @@ export default function RecommendationPanel() {
     setHasSearched(true);
     setErrorMsg("");
     setRecommendations([]);
+    setIsColdStart(false);
+
+    // Render free-tier cold start detection
+    const coldStartTimer = setTimeout(() => {
+      setIsColdStart(true);
+    }, 3000);
     
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
@@ -47,9 +54,11 @@ export default function RecommendationPanel() {
       const err = error as { response?: { data?: { detail?: string } } };
       setErrorMsg(
         err.response?.data?.detail || 
-        "Failed to find recommendations. Please check the movie name and try again."
+        "⚠️ Unable to fetch recommendations. Please try again."
       );
     } finally {
+      clearTimeout(coldStartTimer);
+      setIsColdStart(false);
       setLoading(false);
     }
   };
@@ -139,9 +148,11 @@ export default function RecommendationPanel() {
               <div className="relative w-20 h-20">
                 <div className="absolute inset-0 rounded-full border-t-2 border-cyan-400 animate-spin"></div>
                 <div className="absolute inset-0 rounded-full border-r-2 border-purple-500 animate-[spin_1.5s_linear_infinite_reverse]"></div>
-                <div className="absolute inset-4 rounded-full border-b-2 border-white animate-[spin_2s_linear_infinite]"></div>
+                <div className="absolute inset-0 rounded-full border-b-2 border-white animate-[spin_2s_linear_infinite]"></div>
               </div>
-              <p className="text-cyan-400 animate-pulse font-medium tracking-widest uppercase text-sm">Analyzing Cinematic Data...</p>
+              <p className="text-cyan-400 animate-pulse font-medium tracking-widest uppercase text-sm">
+                {isColdStart ? "Waking up server... please wait ⏳" : "Analyzing Cinematic Data..."}
+              </p>
             </div>
           ) : errorMsg ? (
             <div className="flex justify-center items-center h-64">
@@ -152,8 +163,8 @@ export default function RecommendationPanel() {
           ) : recommendations.length > 0 ? (
             <div className="flex flex-col gap-10">
               <div className="text-center">
-                <h3 className="text-2xl font-bold text-white mb-2">Recommended For You 🎯</h3>
-                <p className="text-slate-400">Because you like <span className="text-cyan-400 font-semibold">{inputMovie}</span></p>
+                <h3 className="text-2xl font-bold text-white mb-2">🎯 Recommended For You</h3>
+                <p className="text-slate-400">✨ Based on your input and similarity analysis for <span className="text-cyan-400 font-semibold">{inputMovie}</span></p>
               </div>
               
               <motion.div 
@@ -169,7 +180,7 @@ export default function RecommendationPanel() {
             </div>
           ) : (
             <div className="flex justify-center items-center h-64 text-slate-400 text-center">
-              <p className="text-xl">No recommendations found.</p>
+              <p className="text-xl">No results found. Try another movie.</p>
             </div>
           )}
         </div>

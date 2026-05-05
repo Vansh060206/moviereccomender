@@ -13,13 +13,13 @@ const firebaseConfig = {
   databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
 };
 
-// Initialize Firebase only once
+// Initialize Firebase only once to prevent re-initialization errors in Next.js Hot Reload
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-// Initialize Realtime Database
+// Initialize Realtime Database (Used for saving users' favorited/hearted movies)
 const database = getDatabase(app);
 
-// Initialize Authentication
+// Initialize Authentication (Used for Email/Password Signup and Login flows)
 const auth = getAuth(app);
 
 export { app, database, auth };
