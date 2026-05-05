@@ -19,7 +19,7 @@ This project is an advanced, production-ready Movie Recommendation System built 
 - **Database & Auth:** Firebase (Realtime Database & Authentication)
 
 ## Screenshots
-<img width="633" height="728" alt="Screenshot 2026-05-06 003305" src="https://github.com/user-attachments/assets/f4f055bf-7e16-41a4-aef9-e1e1e9f2cad3" />
+<img width="633" height="528" alt="Screenshot 2026-05-06 003305" src="https://github.com/user-attachments/assets/f4f055bf-7e16-41a4-aef9-e1e1e9f2cad3" />
 <img width="1853" height="894" alt="Screenshot 2026-05-06 003324" src="https://github.com/user-attachments/assets/6832ba76-be4e-4c27-97cf-cd676e92d51f" />
 <img width="1734" height="752" alt="Screenshot 2026-05-06 003405" src="https://github.com/user-attachments/assets/0cb68c9c-dc65-4971-aa34-93563ab89ac0" />
 <img width="1804" height="887" alt="Screenshot 2026-05-06 003444" src="https://github.com/user-attachments/assets/cac73de4-8e67-41e5-be7e-e48d8b697d69" />
