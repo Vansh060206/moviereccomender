@@ -1,0 +1,61 @@
+# ================================
+
+# Movie Recommender System Dependencies
+
+# ================================
+
+# FastAPI
+
+# Modern Python web framework used to build the backend API
+
+# It will allow your frontend website to request movie recommendations
+
+fastapi==0.110.0
+
+# Uvicorn
+
+# ASGI server used to run FastAPI applications
+
+# It handles incoming HTTP requests efficiently
+
+uvicorn==0.29.0
+
+# Pandas
+
+# Data analysis library used for handling datasets
+
+# You are using it to load and manipulate movies.csv and ratings.csv
+
+pandas==2.2.2
+
+# NumPy
+
+# Fundamental library for numerical computations
+
+# Required by pandas and scikit-learn for matrix operations
+
+numpy==1.26.4
+
+# Scikit-learn
+
+# Machine learning library used for recommendation algorithms
+
+# You are using cosine_similarity from this library
+
+scikit-learn==1.4.2
+
+# SciPy
+
+# Provides scientific computing tools
+
+# Used internally by scikit-learn for mathematical operations
+
+scipy==1.13.0
+
+# Python-dotenv
+
+# Used to store environment variables securely
+
+# Useful when you add API keys or database credentials later
+
+python-dotenv==1.0.1
